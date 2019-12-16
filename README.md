@@ -1,53 +1,55 @@
-# mvBasicSQLClient
-Client SQL per uniVerse Basic
+# Introduction
 
-SQL API ver 1.11 de 23 de Julio de 2005.
+These 3 directories contain uniVerse Basic subroutines with the following features:
+
+- SUBSQL SQL Client for uniVerse Basic SQL API see 1.11 of 23 July 2005.
+- SUBMEM Memory Hash Table.
+- SUBUTIL Utilities for transposing dynamic arrays.
 
 ---
 
-## Cliente SQL
+## SQL Client
 
-Las siguientes subrutinas permiten ejecutar SQL desde uniBasic y uniObjects.
+The following subroutines allow you to execute SQL from uniBasic and uniObjects.
 
-
-
-```
-      SUBROUTINE SQLCOLUMNS.B(ERROR, RESULTADO, COLUMNAS, SCHEMA, OWNER, TABLENAME, COLUMN_NAME)
-
-​      SUBROUTINE SQLTABLES.B(ERROR, RESULTADO, COLUMNAS, SCHEMA, OWNER, TABLENAME, TYPE)
-
-​      SUBROUTINE SQLSELECT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-​      SUBROUTINE SQLSELECTFMT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-​      SUBROUTINE SQLEXECUTE.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-​      SUBROUTINE SQLEXECUTEFMT.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-​      SUBROUTINE SQLEXECUTE2.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-​      SUBROUTINE SQLFREE.B(ERROR, FRASE)
-
-​      SUBROUTINE SQLTRANSACT.B(ERROR, ESTADO_ACC, ACCION, NIVEL)
-
-​      SUBROUTINE SQLCONNECT.B(ERROR, CONENVNO, SERVIDORUV, OSUID, OSPWD, UID, PWD)
-
-​      SUBROUTINE SQLDISCONNECT.B(ERROR, CONENVNO)
-
-​      SUBROUTINE LOOKUP.B(RES,FRASE)
-
-​      SUBROUTINE SQLROWCOUNT.B(ROWCOUNT, CONENVNO)
-
-​      SUBROUTINE SQLSELECTD.B(ERROR, RESULTADO, COLUMNAS, FRASE)
 
 
 ```
+SUBROUTINE SQLCOLUMNS.B(ERROR, RESULTADO, COLUMNAS, SCHEMA, OWNER, TABLENAME, COLUMN_NAME)
 
-Se pueden catalogar de forma global o local.
+SUBROUTINE SQLTABLES.B(ERROR, RESULTADO, COLUMNAS, SCHEMA, OWNER, TABLENAME, TYPE)
 
-Devuelven tres conjuntos de parámetros:
+SUBROUTINE SQLSELECT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
 
-**ERROR** contiene los mensajes de error producidos según el formato:
+SUBROUTINE SQLSELECTFMT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
+
+SUBROUTINE SQLEXECUTE.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+
+SUBROUTINE SQLEXECUTEFMT.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+
+SUBROUTINE SQLEXECUTE2.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+
+SUBROUTINE SQLFREE.B(ERROR, FRASE)
+
+SUBROUTINE SQLTRANSACT.B(ERROR, ESTADO_ACC, ACCION, NIVEL)
+
+SUBROUTINE SQLCONNECT.B(ERROR, CONENVNO, SERVIDORUV, OSUID, OSPWD, UID, PWD)
+
+SUBROUTINE SQLDISCONNECT.B(ERROR, CONENVNO)
+
+SUBROUTINE LOOKUP.B(RES,FRASE)
+
+SUBROUTINE SQLROWCOUNT.B(ROWCOUNT, CONENVNO)
+
+SUBROUTINE SQLSELECTD.B(ERROR, RESULTADO, COLUMNAS, FRASE)
+
+```
+
+They can be cataloged globally or locally.
+
+They return three sets of parameters:
+
+**ERROR** contains the error messages produced according to the format:
 
 ```
       ERROR<1> = STATUS
@@ -60,13 +62,13 @@ Devuelven tres conjuntos de parámetros:
       ERROR<8> = Mensaje_de_error_de_stmt
 ```
 
-**RESULTADO** matriz dinámica que contiene los resultados de la frase cada atributo un registro cada valor un campo.
+**RESULTS** dynamic array containing the results of the phrase each attribute a record each value field.
 
-**COLUMNAS** matriz dinámica con la estructura de los datos de resultado.
+**COLUMNS** dynamic array with the structure of the data outcome.
 
-Cada atributo corresponde a un campo.
+Each attribute corresponds to a field.
 
-La estructura de valores esta definida en SQLCOLMETA.INC (subconjunto):
+The value structure is defined in SQLCOLMETA.INC (subset):
 
 ```
       EQU s_TABLE_SCHEMA       TO  1
@@ -94,7 +96,7 @@ La estructura de valores esta definida en SQLCOLMETA.INC (subconjunto):
 
 ## SUBROUTINE SQLCOLUMNS.B(ERROR, RESULTADO, COLUMNAS, SCHEMA, OWNER, TABLENAME, COLUMN_NAME)
 
-Se obtiene la estructura de columnas de las tablas SQL a partir de UV_COLUMNS.
+The column structure of the SQL tables is obtained from UV_COLUMNS.
 
 ```
       SELECT
@@ -118,7 +120,7 @@ Se obtiene la estructura de columnas de las tablas SQL a partir de UV_COLUMNS.
       FROM UV_COLUMNS "
 ```
 
-  La estructura de valores esta definida en SQLCOLMETA.INC (subconjunto):
+  The value structure is defined in SQLCOLMETA.INC (subset):
 
 ```
       EQU s_TABLE_SCHEMA       TO  1
@@ -139,15 +141,13 @@ Se obtiene la estructura de columnas de las tablas SQL a partir de UV_COLUMNS.
 
 ```
 
-Esto se ha hecho así por un defecto del comando SQLColumns del BCI, pero la restructura es muy similar.
+This has been done by a defect of the BCI SQLColumns command, but the structure is very similar.
 
-El campo OWNER no se utiliza para el filtro.
+The OWNER field is not used for the filter.
 
 ## SUBROUTINE SQLTABLES.B(ERROR, RESULTADO, COLUMNAS, SCHEMA, OWNER, TABLENAME, TYPE)
 
-
-
-Se obtiene la estructura de las tablas SQL a partir de UV_TABLES.
+The structure of the SQL tables is obtained from UV_TABLES.
 
 ```
       SELECT
@@ -169,17 +169,13 @@ ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLSELECT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
+### SUBROUTINE SQLSELECT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
 
+The result of a SQL PHRASE of the SELECT type is obtained, the other sentences are executed but do not present results.
 
+PHRASE <1,1> contains the SQL phrase
 
-Se obtiene el resultado de una FRASE SQL de tipo SELECT, las otras frases se ejecutan pero no presentan resultados.
-
-
-
-FRASE<1,1> contiene la frase SQL
-
-FRASE<1,2> contiene el numero de entorno de conexión asignado por comando CONNECT si "" o 0 se refiere al motor SQL local de UniVerse
+PHASE <1,2> contains the connection environment number assigned by CONNECT command if "" or 0 refers to the UniVerse local SQL engine
 
 
 
@@ -187,19 +183,47 @@ ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLSELECTFMT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
+### SUBROUTINE SQLSELECTFMT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
+
+The result of a SELECT SQL PHRASE is obtained by formatting the result,
+
+the other phrases are executed but do not present results.
+
+PHRASE <1,1> contains the SQL phrase
+
+PHASE <1,2> contains the connection environment number assigned by CONNECT command if "" or 0 refers to the UniVerse local SQL engine
 
 
 
-Se obtiene el resultado de una FRASE SQL de tipo SELECT formateando el resultado,
+____________________________________________________________________
 
-las otras frases se ejecutan pero no presentan resultados.
+### SUBROUTINE SQLEXECUTE.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+
+The result of an SQL PHRASE is obtained by a cursor.
+
+PHRASE <1,1> contains the SQL phrase
+
+PHASE <1,2> contains the connection environment number assigned by CONNECT command if "" or 0 refers to the UniVerse local SQL engine
+
+The cursors are stored in memory, are identified by the PHRASE and can be executed several times.
+
+In VALUES we pass a dynamic array of parameters to the cursor (each attribute a field).
+
+In COLUMNAS_VALORES we pass the metadata level structure of these parameters (same structure as COLUMNS).
+
+The parameters of VALUES and COLUMNS_VALUES are based on their position.
+
+The following COLUMNAS_VALORES values are mandatory:
 
 
 
-FRASE<1,1> contiene la frase SQL
+```
+            COLUMNAS_VALORES<I,s_DATA_TYPE> ,
+            COLUMNAS_VALORES<I,s_NUMERIC_PRECISION>,
+            COLUMNAS_VALORES<I,s_NUMERIC_SCALE>
+```
 
-FRASE<1,2> contiene el numero de entorno de conexión asignado por comando CONNECT si "" o 0 se refiere al motor SQL local de UniVerse
+There are only 20 simultaneous cursors per session.
 
 
 
@@ -207,265 +231,126 @@ ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLEXECUTE.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+### SUBROUTINE SQLEXECUTEFMT.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
 
 
 
-Se obtiene el resultado de una FRASE SQL mediante un cursor.
+The result of an SQL PHRASE is obtained by a cursor formatting the result.
+
+PHRASE <1,1> contains the SQL phrase
+
+PHASE <1,2> contains the connection environment number assigned by CONNECT command if "" or 0 refers to the UniVerse local SQL engine
+
+The cursors are stored in memory, are identified by the PHRASE and can be executed several times.
+
+In VALUES we pass a dynamic matrix of parameters to the cursor (each attribute a field).
+
+In COLUMNAS_VALORES we pass the metadata level structure of these parameters (same structure as COLUMNS).
+
+The parameters of VALUES and COLUMNS_VALUES are based on their position.
+
+The following COLUMNAS_VALORES values are mandatory:
 
 
 
-FRASE<1,1> contiene la frase SQL
+```
+           COLUMNAS_VALORES<I,s_DATA_TYPE> ,
+           COLUMNAS_VALORES<I,s_NUMERIC_PRECISION>,
+           COLUMNAS_VALORES<I,s_NUMERIC_SCALE>
+```
 
-FRASE<1,2> contiene el numero de entorno de conexión asignado por comando CONNECT si "" o 0 se refiere al motor SQL local de UniVerse
-
-
-
-Los cursores estan almacenados en memoria, se identifican por la FRASE y se pueden ejecutar divessas veces.
-
-
-
-En VALORES le pasamos una matriz dinamica de parametros al cursor (cada atributo un campo).
-
-
-
-En COLUMNAS_VALORES le pasamos la estructura a nivel de metadatos de de dichos parametros (misma estructura que COLUMNAS).
-
-
-
-Los parametros de VALORES y de COLUMNAS_VALORES son en funcion de su posición.
-
-
-
-Son obligatorios los siguientes valores de COLUMNAS_VALORES:
-
-
-
-​            COLUMNAS_VALORES<I,s_DATA_TYPE> ,
-
-​            COLUMNAS_VALORES<I,s_NUMERIC_PRECISION>,
-
-​            COLUMNAS_VALORES<I,s_NUMERIC_SCALE>
-
-
-
-Solo hay 20 cursores simultaneos por sesion.
-
-
+There are only 20 simultaneous cursors per session.
 
 ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLEXECUTEFMT.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+### SUBROUTINE SQLEXECUTE2.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
 
 
 
-Se obtiene el resultado de una FRASE SQL mediante un cursor formateando el resultado.
+The result of an SQL PHRASE is obtained by a cursor formatting the result.
 
+PHRASE <1,1> contains the SQL phrase
 
+PHASE <1,2> contains the connection environment number assigned by CONNECT command if "" or 0 refers to the UniVerse local SQL engine
 
-FRASE<1,1> contiene la frase SQL
+The cursors are stored in memory, are identified by the PHRASE and can be executed several times.
 
-FRASE<1,2> contiene el numero de entorno de conexión asignado por comando CONNECT si "" o 0 se refiere al motor SQL local de UniVerse
+In VALUES we pass a dynamic matrix of parameters to the cursor (each attribute a field).
 
+In COLUMNAS_VALORES we pass the metadata level structure of these parameters (same structure as COLUMNS).
 
+The parameters of VALUES and COLUMNS_VALUES are based on their position.
 
-Los cursores estan almacenados en memoria, se identifican por la FRASE y se pueden ejecutar divessas veces.
+The following COLUMNAS_VALORES values are mandatory:
 
+```
+           COLUMNAS_VALORES<I,s_DATA_TYPE> ,
+           COLUMNAS_VALORES<I,s_NUMERIC_PRECISION>,
+           COLUMNAS_VALORES<I,s_NUMERIC_SCALE>
+```
 
-
-En VALORES le pasamos una matriz dinamica de parametros al cursor (cada atributo un campo).
-
-
-
-En COLUMNAS_VALORES le pasamos la estructura a nivel de metadatos de de dichos parametros (misma estructura que COLUMNAS).
-
-
-
-Los parametros de VALORES y de COLUMNAS_VALORES son en funcion de su posición.
-
-
-
-Son obligatorios los siguientes valores de COLUMNAS_VALORES:
-
-
-
-​            COLUMNAS_VALORES<I,s_DATA_TYPE> ,
-
-​            COLUMNAS_VALORES<I,s_NUMERIC_PRECISION>,
-
-​            COLUMNAS_VALORES<I,s_NUMERIC_SCALE>
-
-
-
-Solo hay 20 cursores simultaneos por sesion.
-
-
+There are only 20 simultaneous cursors per session.
 
 ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLEXECUTE2.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
+### SUBROUTINE SQLFREE.B(ERROR, FRASE)
 
+Release a cursor created with SQLEXECUTE.B, if the phrase is empty string, it releases them all.
 
+It is advisable to execute it once before executing the first SQLEXECUTE.B ignoring the error messages.
 
-Se obtiene el resultado de una FRASE SQL mediante un cursor.
-
-
-
-FRASE<1,1> contiene la frase SQL
-
-FRASE<1,2> contiene el numero de entorno de conexión asignado por comando CONNECT si "" o 0 se refiere al motor SQL local de UniVerse
-
-
-
-Los cursores estan almacenados en memoria, se identifican por la FRASE y se pueden ejecutar divessas veces.
-
-
-
-En VALORES le pasamos una matriz dinamica de parametros al cursor (cada registro atributo y cada valor un campo).
-
-
-
-En COLUMNAS_VALORES le pasamos la estructura a nivel de metadatos de de dichos parametros (misma estructura que COLUMNAS).
-
-
-
-Los parametros de VALORES y de COLUMNAS_VALORES son en funcion de su posición.
-
-
-
-Son obligatorios los siguientes valores de COLUMNAS_VALORES:
-
-
-
-​            COLUMNAS_VALORES<I,s_DATA_TYPE> ,
-
-​            COLUMNAS_VALORES<I,s_NUMERIC_PRECISION>,
-
-​            COLUMNAS_VALORES<I,s_NUMERIC_SCALE>
-
-
-
-Solo hay 20 cursores simultaneos por sesion.
-
-
+There are only 20 simultaneous cursors per session.
 
 ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLFREE.B(ERROR, FRASE)
+### SUBROUTINE SQLTRANSACT.B(ERROR, ESTADO_ACC, ACCION, NIVEL)
 
+- Control the beginning and end of the transaction for UniVerse
 
+  ACTION may be worth:
 
-Libera un cursor creado con SQLEXECUTE.B, si la frase es cadena vacia, los libera todos.
-
-
-
-Es recomendable ejecutarla una vez antes de ejecutar el primer SQLEXECUTE.B ignorando los mensajes de error.
-
-
-
-Solo hay 20 cursores simultaneos por sesion.
-
-
-
-____________________________________________________________________
-
-
-
-​      SUBROUTINE TRANS.MAT.B(OUT.MAT.DIN,IN.MAT.DIN)
-
-​      SUBROUTINE TRANS.MAT.SELECT.B(OUT.MAT.DIN,IN.MAT.DIN)
-
-
-
-Permite transponer una matriz dinamica.
-
-
-
-TRANS.MAT.B sirve para cualquier tipo de matriz.
-
-TRANS.MAT.SELECT.B está obtimizado para matrices cuadradas del tipo de una select.
-
-
-
-____________________________________________________________________
-
-
-
-​      SUBROUTINE SQLTRANSACT.B(ERROR, ESTADO_ACC, ACCION, NIVEL)
-
-
-
-Controla los inicios y finales de transaccion para UniVerse
-
-
-
-ACCION puede valer:
-
-
-
-COMMIT     Valida una transaccion
-
-ROLLBACK   Cancela una transaccion (accion por defecto)
-
-STATUS     Devuelve la ultima asignación en la ACCION en NIVEL en ESTADO_ACC
-
-START      Activa las transacciones con el nivel especificado en NIVEL
-
-LEVEL      Activa el nivel de aislamiento de transacciones especificado en NIVEL
-
-​           (No se puede cambiar dentro de una transaccion)
+  - COMMIT Validates a transaction
+  - ROLLBACK Cancels a transaction (default action)
+  - STATUS Returns the last assignment in LEVEL ACTION in STATUS_ACC
+  - START Activates transactions with the level specified in LEVEL
+  - LEVEL Activates the level of transaction isolation specified in LEVEL (Cannot be changed within a transaction)
 
 \----------
 
-NIVEL solo se tiene en consideración en START o en LEVEL
+LEVEL is only considered in START or LEVEL
 
-  -1         No cambia el nivel de aislamiento, permite anidar transacciones
-
-​                                y requiere validar todos los niveles.
+   -1 		Does not change the isolation level, allows nesting transactions and requires validation of all levels.
 
    0         NO.ISOLATION       Prevents lost updates.
 
    1         READ.UNCOMMITTED   Prevents lost updates.
 
-   2         READ.COMMITTED     Prevents lost updates and dirty
+   2         READ.COMMITTED     Prevents lost updates and dirty reads.
 
-​                                reads.
+   3         REPEATABLE.READ    Prevents lost updates, dirty reads, and nonrepeatable reads.
 
-   3         REPEATABLE.READ    Prevents lost updates, dirty
-
-​                                reads, and nonrepeatable reads.
-
-   4         SERIALIZABLE       Prevents lost updates, dirty reads,
-
-​                                nonrepeatable reads, and phantom
-
-​                                writes.
+   4         SERIALIZABLE       Prevents lost updates, dirty reads, nonrepeatable reads, and phantom writes.
 
 \----------
 
-ERROR      No hay error si es cadena vacia
+ERROR There is no error if it is empty string
 
-​            ERROR<1> = Numero de error ( -1 Error en Inicio de transaccion,
-
-​                                         -2 Error en commit)
-
-​            ERROR<2> = Accion realizada
+  ERROR <1> = Error number (-1 Transaction start error, -2 Error in commit)
+  ERROR <2> = Action taken
 
 \----------
 
-En ESTADO_ACC devuelve el estado de la ultima accion.
+In ESTADO_ACC it returns the status of the last action.
 
+​            ESTADO_ACC<1> = Last STATUS called
 
-
-​            ESTADO_ACC<1> = Ultimo ESTADO llamado
-
-​            ESTADO_ACC<2> = Ultimo NIVEL llamado
+​            ESTADO_ACC<2> = Last LEVEL called
 
 ​            ESTADO_ACC<3> = @TRANSACTION
 
@@ -481,25 +366,50 @@ ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLCONNECT.B(ERROR, CONENVNO, SERVIDORUV, OSUID, OSPWD, UID, PWD)
+### SUBROUTINE SQLCONNECT.B(ERROR, CONENVNO, SERVIDORUV, OSUID, OSPWD, UID, PWD)
 
 
 
-Conecta a un origen de datos remoto, el universe localuv no requiere conectar y se referencia con CONENVNO = 0 o ""
+Connects to a remote data source, the universe localuv does not require connecting and is referenced with CONENVNO = 0 or ""
+
+CONENVNO 	Number from 1 to 8 that identifies the connection
+SERVIDORUV data source (reflected in uvodbc.config between symbols <>)
+OSUID 		User to establish the connection (at OS level)
+OSPWD 		Password to establish the connection (at OS level)
+UID 		In universe corresponds to the schema name, in others it corresponds to the DB user
+PWD 		In universe it is not used, in others it corresponds to the DB user
+
+____________________________________________________________________
 
 
 
-CONENVNO      Numero del 1 al 8 que identifica la conexion
+### SUBROUTINE SQLDISCONNECT.B(ERROR, CONENVNO)
 
-SERVIDORUV    origen de datos (reflejado en uvodbc.config entre los simbolos <>)
+Disconnects from a remote data source, the universe localuv does not require disconnecting and is referenced with CONENVNO = 0 or ""
 
-OSUID         Usuario para establecer la conexion (an nivel de SO)
+CONENVNO Number from 1 to 8 that identifies the connection
 
-OSPWD         Palabra de paso para establecer la conexion (an nivel de SO)
+____________________________________________________________________
 
-UID           En universe corresponde al nombre de esquema, en otras coresponde al usuario de DB
 
-PWD           En universe no se usa, en otras coresponde al usuario de DB
+
+### SUBROUTINE LOOKUP.B(RES,FRASE)
+
+It allows you to execute a sentence from a DICT against the universe localuv.
+
+RES 	Contains the result of the select in an array of records using @vm as the record separator and @svm as the attribute separator..
+
+____________________________________________________________________
+
+
+
+### SUBROUTINE SQLSELECTD.B(ERROR, RESULTADO, COLUMNAS, FRASE)
+
+The result of a SELECT SQL PHRASE is obtained, the other phrases are executed but do not present results (with the support of multiple date formats).
+
+FRASE<1,1> contains the SQL phrase
+
+FRASE<1,2> contains the connection environment number assigned by CONNECT command if "" or 0 refers to the UniVerse local SQL engine
 
 
 
@@ -507,558 +417,189 @@ ____________________________________________________________________
 
 
 
-​      SUBROUTINE SQLDISCONNECT.B(ERROR, CONENVNO)
-
-
-
-Desconecta de un origen de datos remoto, el universe localuv no requiere desconectar y se referencia con CONENVNO = 0 o ""
-
-
-
-CONENVNO      Numero del 1 al 8 que identifica la conexion
-
-
-
-____________________________________________________________________
-
-
-
-​      SUBROUTINE LOOKUP.B(RES,FRASE)
-
-
-
-Permite ejecutar una frase desde un DICT contra el universe localuv.
-
-
-
-RES           Contiene el resultado de la select en una matriz de registos usando @vm como separador de registro y @svm como separador de atributo.
-
-
-
-____________________________________________________________________
-
-
-
-​      SUBROUTINE SQLSELECTD.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-
-
-Se obtiene el resultado de una FRASE SQL de tipo SELECT, las otras frases se ejecutan pero no presentan resultados (con el soporte de multiples formatos de fecha).
-
-
-
-FRASE<1,1> contiene la frase SQL
-
-FRASE<1,2> contiene el numero de entorno de conexión asignado por comando CONNECT si "" o 0 se refiere al motor SQL local de UniVerse
-
-
-
-____________________________________________________________________
-
-
-
-INSTALACION
-
-
+### INSTALACION
 
 Compilar programas
 
-
-
+```
 BASIC SUBSQL SQLCOLUMNS.B
-
 BASIC SUBSQL SQLCONNECT.B
-
 BASIC SUBSQL SQLDISCONNECT.B
-
 BASIC SUBSQL SQLEXECUTE.B
-
 BASIC SUBSQL SQLEXECUTE2.B
-
 BASIC SUBSQL SQLEXECUTEFMT.B
-
 BASIC SUBSQL SQLFREE.B
-
 BASIC SUBSQL SQLSELECT.B
-
 BASIC SUBSQL SQLSELECTFMT.B
-
 BASIC SUBSQL SQLTABLES.B
-
 BASIC SUBSQL SQLTRANSACT.B
-
 BASIC SUBSQL TRANS.MAT.B
-
 BASIC SUBSQL TRANS.MAT.SELECT.B
-
 BASIC SUBSQL LOOKUP.B
-
 BASIC SUBSQL SQLROWCOUNT.B
-
 BASIC SUBSQL SQLSELECTD.B
+```
 
+In a PICK account, programs should be cataloguet as:
 
-
-En una cuenta PICK los programas se deben catalogar como:
-
-
-
+```
 COPYI FROM VOC TO DICT VOC 'F6'
-
 INSERT INTO VOC (F0, F1, F2, F3, F4, F5, F6) VALUES ( 'CATALOG.IDEAL', 'V', 'CATALOG', 'I', 'BDGZ', 'catalog', 'INFORMATION.FORMAT');
 
-
-
 CATALOG.IDEAL SUBSQL *SQLCOLUMNS.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLCONNECT.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLDISCONNECT.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLEXECUTE.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLEXECUTE2.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLEXECUTEFMT.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLFREE.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLSELECT.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLSELECTFMT.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLTABLES.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLTRANSACT.B FORCE
-
 CATALOG.IDEAL SUBSQL *TRANS.MAT.B FORCE
-
 CATALOG.IDEAL SUBSQL *TRANS.MAT.SELECT.B FORCE
-
 CATALOG.IDEAL SUBSQL *LOOKUP.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLROWCOUNT.B FORCE
-
 CATALOG.IDEAL SUBSQL *SQLSELECTD.B FORCE
+```
 
+In an IDEAL account:
 
-
-En una cuenta IDEAL:
-
-
-
+```
 CATALOG SQL *SQLCOLUMNS.B FORCE
-
 CATALOG SQL *SQLCONNECT.B FORCE
-
 CATALOG SQL *SQLDISCONNECT.B FORCE
-
 CATALOG SQL *SQLEXECUTE.B FORCE
-
 CATALOG SQL *SQLEXECUTE2.B FORCE
-
 CATALOG SQL *SQLEXECUTEFMT.B FORCE
-
 CATALOG SQL *SQLFREE.B FORCE
-
 CATALOG SQL *SQLSELECT.B FORCE
-
 CATALOG SQL *SQLSELECTFMT.B FORCE
-
 CATALOG SQL *SQLTABLES.B FORCE
-
 CATALOG SQL *SQLTRANSACT.B FORCE
-
 CATALOG SQL *TRANS.MAT.B FORCE
-
 CATALOG SQL *TRANS.MAT.SELECT.B FORCE
-
 CATALOG SQL *LOOKUP.B FORCE
-
 CATALOG SQL *SQLROWCOUNT.B FORCE
-
 CATALOG SQL *SQLSELECTD.B FORCE
+```
 
+ This forces to make a call of type SQLFREE.B (ERROR, 0), which gives error to release it.
 
+ Resolved PENDING TO TRY!
 
-
-
-
-
-
-
-
-
-
-
-  Esto obliga a hacer una llamada del tipo SQLFREE.B(ERROR, 0), que da error para liberarla.
-
-  Resuelto PENDIENTE DE PROBAR !
-
-
+____________________________________________________________________
 
 ____________________________________________________________________
 
 
 
-Version 1.3
+## HASH TABLE IN MEMORY
 
+We have 4 tables in memory (subfile _0 to _3)
 
+The tables are initialized with
 
-\- 3.- Al desbordar el numero de stmenv utiliza un tampon circular.
+```
+SUBROUTINE MEM_CLEAR_0
+```
 
-  PENDIENTE DE PROBAR !
+To fill it with records we have the functions
 
+```
+SUBROUTINE MEM_WRITE_0(VREG,VITID)
+SUBROUTINE MEM_DELETE_0(VITID)
+```
 
+To read data from your primary key
 
-____________________________________________________________________
+```
+SUBROUTINE MEM_READ_0(ST,VREG,VITID)
+```
 
+To explore the data by a cursor we have two functions
 
+The first positions the cursor on the first record.
 
-Version 1.4
+```
+SUBROUTINE MEM_FIRST_0
+```
 
+ The second reads the register and positions the cursor in the next position.
 
+```
+MEM_READNEXT_0(ST,VREG,VITID)
+```
 
-\- 4.- Poder usarse para un conjunto de registros, se añade
+### Instalación
 
-  SQLEXECUTE2.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-  aparentemente el problema esta en SQLFreeStmt con SQL.CLOSE
-
-  al ejecutar de nuevo el cursor no cambiaba los valores ahora si
-
-  PENDIENTE DE PROBAR !
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.5
-
-
-
-\- 5.- Conversión del valor null a cadena vacia al recuperar un conjunto de registros.
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.6
-
-
-
-\- 6.- Añade control de transacciones.
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.6.1
-
-
-
-\- 6.- Corrige el control de transacciones.
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.6.2
-
-
-
-\- 7.- Se añade parametro ESTADO_ACC en :
-
-​      SUBROUTINE SQLTRANSACT.B(ERROR, ESTADO_ACC, ACCION, NIVEL)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.7
-
-
-
-\- 8.- Se añade SQLSELECTFMT.B para capturar el resultado de una select formateando datos
-
-​      SUBROUTINE SQLSELECTFMT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.8
-
-
-
-\- 9.- Se añade SQLREMOTESELECT.B para capturar el resultado de una select formateando datos
-
-​      SUBROUTINE SQLREMOTESELECT.B(ERROR, RESULTADO, COLUMNAS, SERVIDOR,USUARIO, PASSWD, ESQUEMA, FRASE)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.9
-
-
-
-\- 10.- Se añade SQLCONNECT.B y SQLDISCONNECT.B, quedando en desuso SQLREMOTESELECT.B.
-
-​       De esta forma se puede conectar a otros origenes de datos UniVerse y ODBC, con los mismos comandos
-
-​          SUBROUTINE SQLSELECT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-​          SUBROUTINE SQLSELECTFMT.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-​          SUBROUTINE SQLEXECUTE.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-​          SUBROUTINE SQLEXECUTEFMT.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-​          SUBROUTINE SQLEXECUTE2.B(ERROR, RESULTADOS, COLUMNAS, FRASE, VALORES, COLUMNAS_VALORES)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.9.1
-
-
-
-\- 11.- Se añade LOOKUP.B.
-
-​       De esta forma se puede desde un Dict ejecutar una select y devuelve el resultado como multivalores.
-
-​          SUBROUTINE LOOKUP.B(RESULTADO, FRASE)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.9.2
-
-
-
-\- 12.- Correccion para LOOKUP.B no se interfiera consigo mismo.
-
-​       De esta forma se puede desde un Dict ejecutar una select y devuelve el resultado como multivalores.
-
-​          SUBROUTINE LOOKUP.B(RESULTADO, FRASE)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.10
-
-
-
-\- 13.- Se añade SQLROWCOUNT.B.
-
-​       Devuelve el numero de registros procesados en la ultima frase.
-
-​          SUBROUTINE SQLROWCOUNT.B(ROWCOUNT, CONENVNO)
-
-
-
-____________________________________________________________________
-
-
-
-Version 1.11
-
-
-
-\- 14.- Se ha añadido el soporte de multiples formatos de fecha con la funcion
-
-​          SUBROUTINE SQLSELECTD.B(ERROR, RESULTADO, COLUMNAS, FRASE)
-
-
-
-____________________________________________________________________
-
-
-
-Lista de temas pendientes.
-
-
-
-\- 1.- SQLCOLUMNS.B no devuelve los tipos de datos SQL y esta fijado el tipo a 0.
-
-  Por este motivo no puede usarse el la definición de los parametros de un cursor.
-
-  El formato de algunos casos (por ejemplo NULLABLE) no coincide con COLUMNAS.
-
-
-
-\- 2.- TRANS.MAT.SELECT.B no procesa bien las matrices con valores nulos.
-
-
-
-\- 3.- Hacer más pruebas con transacciones ya que una vez ha dado un problema.
-
-  En UV 10.0.21 Windows XP Tablet PC Con Parametro universe TXMODE 0 al iniciar
-
-  una transaccion da un error 30107 en el rpc, pero ejecuta correctamente la accion.
-
-  CALL SQLTRANSACT.B( ERROR, ESTADO_ACC, "START", NIVEL)
-
-  Con TXMODE 1 funciona correctamente. Despues no se ha podido reproducir el problema.
-
-  Posiblemente es un problema de universe, cuando se cambia de valor el parametro,
-
-  no siempre coge bien el nuevo valor y requiere que se pare y vuelva a arrancar.
-
-
-
-\- 4.- Las transacciones estan soportadas solo sobre tablas locales.
-
-
-
-\- 5.- Pendiente de probar SQLCOLUMNS.B SQLTABLES.B solo estanban soportados para origenes universe en local.
-
-
-
-\- 6.- Modificar SQLDISCONNECT.B para que desconecte todos las conexiones abiertas.
-
-
-
-\- 7.- En plataforma windows LOOKUP.B no funciona desde una frase RETRIEVE y si desde SQL.
-
-
-
-____________________________________________________________________
-
-
-
-TAULA EN MEMORIA
-
-
-
+```
 BASIC SUBSQL MEM_CLEAR_0
-
 BASIC SUBSQL MEM_DELETE_0
-
 BASIC SUBSQL MEM_FIRST_0
-
 BASIC SUBSQL MEM_READ_0
-
 BASIC SUBSQL MEM_READNEXT_0
-
 BASIC SUBSQL MEM_WRITE_0
-
 BASIC SUBSQL MEM_CLEAR_1
-
 BASIC SUBSQL MEM_DELETE_1
-
 BASIC SUBSQL MEM_FIRST_1
-
 BASIC SUBSQL MEM_READ_1
-
 BASIC SUBSQL MEM_READNEXT_1
-
 BASIC SUBSQL MEM_WRITE_1
-
 BASIC SUBSQL MEM_CLEAR_2
-
 BASIC SUBSQL MEM_DELETE_2
-
 BASIC SUBSQL MEM_FIRST_2
-
 BASIC SUBSQL MEM_READ_2
-
 BASIC SUBSQL MEM_READNEXT_2
-
 BASIC SUBSQL MEM_WRITE_2
-
 BASIC SUBSQL MEM_CLEAR_3
-
 BASIC SUBSQL MEM_DELETE_3
-
 BASIC SUBSQL MEM_FIRST_3
-
 BASIC SUBSQL MEM_READ_3
-
 BASIC SUBSQL MEM_READNEXT_3
-
 BASIC SUBSQL MEM_WRITE_3
-
 **
-
 CATALOG SUBSQL MEM_CLEAR_0
-
 CATALOG SUBSQL MEM_DELETE_0
-
 CATALOG SUBSQL MEM_FIRST_0
-
 CATALOG SUBSQL MEM_READ_0
-
 CATALOG SUBSQL MEM_READNEXT_0
-
 CATALOG SUBSQL MEM_WRITE_0
-
 CATALOG SUBSQL MEM_CLEAR_1
-
 CATALOG SUBSQL MEM_DELETE_1
-
 CATALOG SUBSQL MEM_FIRST_1
-
 CATALOG SUBSQL MEM_READ_1
-
 CATALOG SUBSQL MEM_READNEXT_1
-
 CATALOG SUBSQL MEM_WRITE_1
-
 CATALOG SUBSQL MEM_CLEAR_2
-
 CATALOG SUBSQL MEM_DELETE_2
-
 CATALOG SUBSQL MEM_FIRST_2
-
 CATALOG SUBSQL MEM_READ_2
-
 CATALOG SUBSQL MEM_READNEXT_2
-
 CATALOG SUBSQL MEM_WRITE_2
-
 CATALOG SUBSQL MEM_CLEAR_3
-
 CATALOG SUBSQL MEM_DELETE_3
-
 CATALOG SUBSQL MEM_FIRST_3
-
 CATALOG SUBSQL MEM_READ_3
-
 CATALOG SUBSQL MEM_READNEXT_3
-
 CATALOG SUBSQL MEM_WRITE_3
+```
 
 
 
+## Utilidades para trasponer Matrices dinámicas
 
 
 
-
-      SUBROUTINE TRANS.MAT.B(OUT.MAT.DIN,IN.MAT.DIN)
+    SUBROUTINE TRANS.MAT.B(OUT.MAT.DIN,IN.MAT.DIN)
     
-      SUBROUTINE TRANS.MAT.SELECT.B(OUT.MAT.DIN,IN.MAT.DIN)
+    SUBROUTINE TRANS.MAT.SELECT.B(OUT.MAT.DIN,IN.MAT.DIN)
+
+
+It allows to transpose a dynamic array.
+
+TRANS.MAT.B It is suitable for any type of array.
+
+TRANS.MAT.SELECT.B is optimized for square arrays of the type of a select result.
+
